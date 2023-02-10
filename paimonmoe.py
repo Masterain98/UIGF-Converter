@@ -24,9 +24,15 @@ def item_id_converter(x: str, item_dict: dict) -> int:
 
 
 def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: bool = "y"):
-    print("drop_six_month_data", str(drop_six_month_data))
+    print("drop_six_month_data:", str(drop_six_month_data))
+
+    # Convert Task
+    print("正在转换文件： " + file_name)
+    if file_name[0] == "\"":
+        file_name = file_name.replace("\"", "")
+
     # Make dictionary
-    item_dict = json.loads(requests.get("https://api.uigf.org/dict/en.json").text)
+    # item_dict = json.loads(requests.get("https://api.uigf.org/dict/en.json").text)
     AvatarExcelConfigData = json.loads(
         requests.get("https://genshin-data.uigf.org/d/latest/ExcelBinOutput/AvatarExcelConfigData.json").text)
     WeaponExcelConfigData = json.loads(
@@ -47,11 +53,6 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
                 eng_to_chs_dict[eng_name] = chs_name
             except KeyError:
                 continue
-
-    # Convert Task
-    print("正在转换文件： " + file_name)
-    if file_name[0] == "\"":
-        file_name = file_name.replace("\"", "")
 
     # 加载 Paimon.moe的祈愿导出Excel文件
     df1 = pd.read_excel(file_name, sheet_name="Character Event")

@@ -119,6 +119,10 @@ if __name__ == "__main__":
         print("3. 验证 UIGF 数据文件的有效性（仅用于预期可用的数据文件无法导入时使用）")
         user_input_feature = input("请输入数字以选择功能：")
         user_input_file = input("请输入文件路径或拖入文件：")
+        print("="*20)
+        print("正在处理，请稍候...")
+        if user_input_file[0] == '"':
+            fileName = user_input_file.replace('"', '')
         if user_input_feature == "1":
             teyvat_assistant_record_to_UIGF_format(user_input_file)
         elif user_input_feature == "2":
