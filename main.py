@@ -102,6 +102,29 @@ def UIGF_valid(uigf_json_file: str):
         json.dump(this_output, json_file, indent=4, ensure_ascii=False)
 
 
+def reset_index(uigf_json_file: str):
+    # Read file
+    record = open(uigf_json_file, encoding="utf-8").read()
+    record = json.loads(record)
+    info = record["info"]
+    data_list = record["list"]
+
+    first_record = 1612303200000000000 - len(record["list"])
+    new_list = []
+    for record in data_list:
+        record["id"] = first_record
+        first_record += 1
+        new_list.append(record)
+    #new_list.reverse()
+    new_record = {
+        "info": info,
+        "list": new_list
+    }
+    with open(uigf_json_file.replace(".json", "_indexreset.json"), "w", encoding="utf-8") as json_file:
+        json.dump(new_record, json_file, indent=4, ensure_ascii=False)
+
+    # ./externalData/101023031.json
+
 if __name__ == "__main__":
     # teyvat_assistant_record_to_UIGF_format("抽卡记录.json")
     # UIGF_valid("199036533_20231282043.json")
@@ -113,28 +136,26 @@ if __name__ == "__main__":
     print("这个工具旨在将自定义的原神祈愿记录数据格式转化为 UIGF 标准格式")
     print("关于 UIGF 标准格式的更多信息，请访问 https://uigf.org/")
     print("=" * 20)
-    try:
-        print("1. 将提瓦特小助手的抽卡记录转换为 UIGF 标准格式（Json 数据源）")
-        print("2. 将 Paimon.moe 的祈愿记录转换为 UIGF 标准格式（xlsx 数据源）")
-        print("3. 验证 UIGF 数据文件的有效性（仅用于预期可用的数据文件无法导入时使用）")
-        user_input_feature = input("请输入数字以选择功能：")
-        user_input_file = input("请输入文件路径或拖入文件：")
-        print("="*20)
-        print("正在处理，请稍候...")
-        if user_input_file[0] == '"':
-            fileName = user_input_file.replace('"', '')
-        if user_input_feature == "1":
-            teyvat_assistant_record_to_UIGF_format(user_input_file)
-        elif user_input_feature == "2":
-            paimon_moe_UIGF_converter(user_input_file, input("请输入 UID："),
-                                      input("是否删除近6个月的数据以避免重复？默认放弃（y/n）") == "y")
-        elif user_input_feature == "3":
-            UIGF_valid(user_input_file)
-        else:
-            print("输入错误！")
-        print("输出文件已保存至当前目录")
-        input("按回车键退出程序...")
-    except Exception as e:
-        print("发生错误！")
-        print(e)
-        input("按回车键退出程序...")
+    print("1. 将提瓦特小助手的抽卡记录转换为 UIGF 标准格式（Json 数据源）")
+    print("2. 将 Paimon.moe 的祈愿记录转换为 UIGF 标准格式（xlsx 数据源）")
+    print("3. 验证 UIGF 数据文件的有效性（仅用于预期可用的数据文件无法导入时使用）")
+    print("4. 重置 ID")
+    user_input_feature = input("请输入数字以选择功能：")
+    user_input_file = input("请输入文件路径或拖入文件：")
+    print("=" * 20)
+    print("正在处理，请稍候...")
+    if user_input_file[0] == '"':
+        fileName = user_input_file.replace('"', '')
+    if user_input_feature == "1":
+        teyvat_assistant_record_to_UIGF_format(user_input_file)
+    elif user_input_feature == "2":
+        paimon_moe_UIGF_converter(user_input_file, input("请输入 UID："),
+                                  input("是否删除近6个月的数据以避免重复？默认放弃（y/n）") == "y")
+    elif user_input_feature == "3":
+        UIGF_valid(user_input_file)
+    elif user_input_feature == "4":
+        reset_index(user_input_file)
+    else:
+        print("输入错误！")
+    print("输出文件已保存至当前目录")
+    input("按回车键退出程序...")
