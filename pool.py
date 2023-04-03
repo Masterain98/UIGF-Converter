@@ -111,6 +111,8 @@ def get_uigf_gacha_type(row):
             gacha_type = 301
         elif datetime(2022, 4, 19, 18, 0, 0) < gacha_time < datetime(2022, 5, 31, 5, 59, 59):
             gacha_type = 301
+        elif datetime(2023, 3, 21, 18, 0, 0) < gacha_time < datetime(2023, 4, 11, 14, 59, 59):
+            gacha_type = 400
     elif banner_name == "Tapestry of Golden Flames":
         # 宵宫
         gacha_type = 1
@@ -152,6 +154,8 @@ def get_uigf_gacha_type(row):
         gacha_type = 1
         if datetime(2022, 1, 5, 6, 0, 0) < gacha_time < datetime(2022, 1, 25, 17, 59, 59):
             gacha_type = 301
+        elif datetime(2023, 3, 21, 18, 0, 0) < gacha_time < datetime(2023, 4, 11, 14, 59, 59):
+            gacha_type = 301
     elif banner_name == "Everbloom Violet":
         # 八重神子
         gacha_type = 1
@@ -183,6 +187,8 @@ def get_uigf_gacha_type(row):
         gacha_type = 1
         if datetime(2022, 9, 28, 6, 0, 0) < gacha_time < datetime(2022, 10, 14, 17, 59, 59):
             gacha_type = 301
+        elif datetime(2023, 3, 1, 6, 0, 0) < gacha_time < datetime(2023, 3, 21, 17, 59, 59):
+            gacha_type = 400
     elif banner_name == "Twirling Lotus":
         # 妮露
         gacha_type = 1
@@ -202,5 +208,10 @@ def get_uigf_gacha_type(row):
         # 艾尔海森
         gacha_type = 1
         if datetime(2023, 1, 18, 6, 0, 0) < gacha_time < datetime(2023, 2, 7, 17, 59, 59):
+            gacha_type = 301
+    elif banner_name == "Auric Blaze":
+        # 迪希亚
+        gacha_type = 1
+        if datetime(2023, 3, 1, 6, 0, 0) < gacha_time < datetime(2023, 3, 21, 17, 59, 59):
             gacha_type = 301
     return gacha_type
