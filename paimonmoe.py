@@ -34,13 +34,13 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
     # Make dictionary
     # item_dict = json.loads(requests.get("https://api.uigf.org/dict/en.json").text)
     AvatarExcelConfigData = json.loads(
-        requests.get("https://genshin-data.uigf.org/d/latest/ExcelBinOutput/AvatarExcelConfigData.json").text)
+        requests.get("https://gitlab.com/Dimbreath/AnimeGameData/-/raw/master/ExcelBinOutput/AvatarExcelConfigData.json").text)
     WeaponExcelConfigData = json.loads(
-        requests.get("https://genshin-data.uigf.org/d/latest/ExcelBinOutput/WeaponExcelConfigData.json").text)
+        requests.get("https://gitlab.com/Dimbreath/AnimeGameData/-/raw/master/ExcelBinOutput/WeaponExcelConfigData.json").text)
     chs_dict = json.loads(
-        requests.get("https://genshin-data.uigf.org/d/latest/TextMap/TextMapCHS.json").text)
+        requests.get("https://gitlab.com/Dimbreath/AnimeGameData/-/raw/master/TextMap/TextMapCHS.json").text)
     en_dict = json.loads(
-        requests.get("https://genshin-data.uigf.org/d/latest/TextMap/TextMapEN.json").text)
+        requests.get("https://gitlab.com/Dimbreath/AnimeGameData/-/raw/master/TextMap/TextMapEN.json").text)
 
     eng_to_chs_dict = {}
     item_list = [AvatarExcelConfigData, WeaponExcelConfigData]
