@@ -249,4 +249,8 @@ def get_uigf_gacha_type(row):
         if datetime(2023, 5, 2, 18, 0, 0) < gacha_time < datetime(2023, 5, 23, 14, 59, 59):
             # 3.6 R2
             gacha_type = 301
+    if gacha_type == 1:
+        print(banner_name + " @ " + str(gacha_time) + " record violates the pool rules")
+    elif gacha_type == 0:
+        print(banner_name + "is not a recognized banner, contact developer to request update")
     return gacha_type
