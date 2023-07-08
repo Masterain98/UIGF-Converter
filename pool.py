@@ -1,3 +1,5 @@
+# Latest update: 07/08/2023 for v3.8 R1
+
 from datetime import datetime
 
 
@@ -24,6 +26,9 @@ def get_uigf_gacha_type(row):
         elif datetime(2021, 6, 9, 6, 0, 0) < gacha_time < datetime(2021, 6, 29, 17, 59, 59):
             gacha_type = 301
         elif datetime(2022, 7, 13, 6, 0, 0) < gacha_time < datetime(2022, 8, 2, 17, 59, 59):
+            gacha_type = 400
+        elif datetime(2023, 7, 5, 6, 0, 0) < gacha_time < datetime(2023, 7, 25, 17, 59, 59):
+            # 3.8 R1
             gacha_type = 400
     elif banner_name == "Farewell of Snezhnaya":
         # 公子
@@ -65,6 +70,9 @@ def get_uigf_gacha_type(row):
             gacha_type = 400
         elif datetime(2022, 9, 9, 18, 0, 0) < gacha_time < datetime(2022, 9, 27, 14, 59, 59):
             gacha_type = 301
+        elif datetime(2023, 5, 2, 18, 0, 0) < gacha_time < datetime(2023, 5, 23, 14, 59, 59):
+            # 3.6 R2
+            gacha_type = 400
     elif banner_name == "Invitation to Mundane Life":
         # 魈
         gacha_type = 1
@@ -97,6 +105,9 @@ def get_uigf_gacha_type(row):
             gacha_type = 301
         elif datetime(2021, 11, 24, 6, 0, 0) < gacha_time < datetime(2021, 12, 14, 17, 59, 59):
             gacha_type = 400
+        elif datetime(2023, 7, 5, 6, 0, 0) < gacha_time < datetime(2023, 7, 25, 17, 59, 59):
+            # 3.8 R1
+            gacha_type = 301
     elif banner_name == "Leaves in the Wind":
         # 万叶
         gacha_type = 1
@@ -104,6 +115,9 @@ def get_uigf_gacha_type(row):
             gacha_type = 301
         elif datetime(2022, 7, 13, 6, 0, 0) < gacha_time < datetime(2022, 8, 2, 17, 59, 59):
             gacha_type = 301
+        elif datetime(2023, 6, 13, 18, 0, 0) < gacha_time < datetime(2023, 7, 4, 14, 59, 59):
+            # 3.7 R2
+            gacha_type = 400
     elif banner_name == "The Herons Court":
         # 神里绫华
         gacha_type = 1
@@ -122,6 +136,9 @@ def get_uigf_gacha_type(row):
             gacha_type = 301
         elif datetime(2022, 11, 2, 6, 0, 0) < gacha_time < datetime(2022, 11, 18, 17, 59, 59):
             gacha_type = 400
+        elif datetime(2023, 5, 24, 6, 0, 0) < gacha_time < datetime(2023, 6, 13, 17, 59, 59):
+            # 3.7 R1
+            gacha_type = 301
     elif banner_name == "Reign of Serenity":
         # 雷电将军
         gacha_type = 1
@@ -163,6 +180,9 @@ def get_uigf_gacha_type(row):
             gacha_type = 301
         elif datetime(2022, 11, 18, 18, 0, 0) < gacha_time < datetime(2022, 12, 6, 14, 59, 59):
             gacha_type = 301
+        elif datetime(2023, 5, 24, 6, 0, 0) < gacha_time < datetime(2023, 6, 13, 17, 59, 59):
+            # 3.7 R1
+            gacha_type = 301
     elif banner_name == "Azure Excursion":
         # 神里绫人
         gacha_type = 1
@@ -194,10 +214,16 @@ def get_uigf_gacha_type(row):
         gacha_type = 1
         if datetime(2022, 10, 14, 18, 0, 0) < gacha_time < datetime(2022, 11, 1, 14, 59, 59):
             gacha_type = 301
+        elif datetime(2023, 4, 12, 6, 0, 0) < gacha_time < datetime(2023, 5, 2, 17, 59, 59):
+            # 3.6 R1
+            gacha_type = 400
     elif banner_name == "The Moongrass' Enlightenment":
         # 纳西妲
         gacha_type = 1
         if datetime(2022, 11, 2, 6, 0, 0) < gacha_time < datetime(2022, 11, 18, 17, 59, 59):
+            gacha_type = 301
+        elif datetime(2023, 4, 12, 6, 0, 0) < gacha_time < datetime(2023, 5, 2, 17, 59, 59):
+            # 3.6 R1
             gacha_type = 301
     elif banner_name == "From Ashes Reborn":
         # 流浪者
@@ -209,9 +235,18 @@ def get_uigf_gacha_type(row):
         gacha_type = 1
         if datetime(2023, 1, 18, 6, 0, 0) < gacha_time < datetime(2023, 2, 7, 17, 59, 59):
             gacha_type = 301
+        elif datetime(2023, 6, 13, 18, 0, 0) < gacha_time < datetime(2023, 7, 4, 14, 59, 59):
+            # 3.7 R2
+            gacha_type = 301
     elif banner_name == "Auric Blaze":
         # 迪希亚
         gacha_type = 1
         if datetime(2023, 3, 1, 6, 0, 0) < gacha_time < datetime(2023, 3, 21, 17, 59, 59):
+            gacha_type = 301
+    elif banner_name == "Immaculate Pulse":
+        # 白术
+        gacha_type = 1
+        if datetime(2023, 5, 2, 18, 0, 0) < gacha_time < datetime(2023, 5, 23, 14, 59, 59):
+            # 3.6 R2
             gacha_type = 301
     return gacha_type
