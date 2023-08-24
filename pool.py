@@ -157,6 +157,9 @@ def get_uigf_gacha_type(row):
             gacha_type = 400
         elif datetime(2022, 9, 9, 18, 0, 0) < gacha_time < datetime(2022, 9, 27, 14, 59, 59):
             gacha_type = 400
+        elif datetime(2023, 7, 25, 18, 0, 0) < gacha_time < datetime(2023, 8, 15, 14, 59, 59):
+            # 3.8 R2
+            gacha_type = 301
     elif banner_name == "Oni's Royale":
         # 荒泷一斗
         gacha_type = 1
@@ -197,6 +200,9 @@ def get_uigf_gacha_type(row):
             gacha_type = 301
         elif datetime(2023, 2, 7, 18, 0, 0) < gacha_time < datetime(2023, 2, 28, 14, 59, 59):
             gacha_type = 400
+        elif datetime(2023, 8, 16, 6, 0, 0) < gacha_time < datetime(2023, 9, 5, 17, 59, 59):
+            # 4.0 R1
+            gacha_type = 400
     elif banner_name == "Viridescent Vigil":
         # 提纳里
         gacha_type = 1
@@ -230,6 +236,9 @@ def get_uigf_gacha_type(row):
         gacha_type = 1
         if datetime(2022, 12, 7, 6, 0, 0) < gacha_time < datetime(2022, 12, 27, 17, 59, 59):
             gacha_type = 301
+        elif datetime(2023, 7, 25, 18, 0, 0) < gacha_time < datetime(2023, 8, 15, 14, 59, 59):
+            # 3.8 R2
+            gacha_type = 400
     elif banner_name == "Caution In Confidence":
         # 艾尔海森
         gacha_type = 1
@@ -248,6 +257,12 @@ def get_uigf_gacha_type(row):
         gacha_type = 1
         if datetime(2023, 5, 2, 18, 0, 0) < gacha_time < datetime(2023, 5, 23, 14, 59, 59):
             # 3.6 R2
+            gacha_type = 301
+    elif banner_name == "Conjuring Chiaroscuro":
+        # 林尼
+        gacha_type = 1
+        if datetime(2023, 8, 16, 6, 0, 0) < gacha_time < datetime(2023, 9, 5, 17, 59, 59):
+            # 4.0 R1
             gacha_type = 301
     if gacha_type == 1:
         print(banner_name + " @ " + str(gacha_time) + " record violates the pool rules")
