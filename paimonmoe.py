@@ -4,7 +4,7 @@ import datetime
 import pandas as pd
 import json
 import requests
-from pool import get_uigf_gacha_type
+from utils import get_uigf_gacha_type_online
 
 
 def type_translate(x: str) -> str:
@@ -23,7 +23,10 @@ def item_id_converter(x: str, item_dict: dict) -> int:
     return 0
 
 
-def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: bool = "y"):
+def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: bool = "y", timezone: int = 8):
+    if timezone == -99:
+        return None
+
     print("drop_six_month_data:", str(drop_six_month_data))
 
     # Convert Task
@@ -72,7 +75,7 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
     df1["rank_type"] = df1["⭐"]
     df1.drop(columns=['⭐'], inplace=True)
     # 通过卡池信息判定gacha_type
-    df1["gacha_type"] = df1.apply(lambda x: get_uigf_gacha_type(x), axis=1)
+    df1["gacha_type"] = df1.apply(lambda x: get_uigf_gacha_type_online(x, timezone), axis=1)
     df1.drop(columns=['Banner'], inplace=True)
     # 增加uigf_gacha_type列
     df1["uigf_gacha_type"] = str(301)

@@ -1,6 +1,8 @@
 import json
 import time
 import requests
+
+import utils
 from paimonmoe import paimon_moe_UIGF_converter
 
 GACHA_TYPE_CONVERTER = {
@@ -115,7 +117,7 @@ def reset_index(uigf_json_file: str):
         record["id"] = first_record
         first_record += 1
         new_list.append(record)
-    #new_list.reverse()
+    # new_list.reverse()
     new_record = {
         "info": info,
         "list": new_list
@@ -124,6 +126,7 @@ def reset_index(uigf_json_file: str):
         json.dump(new_record, json_file, indent=4, ensure_ascii=False)
 
     # ./externalData/101023031.json
+
 
 if __name__ == "__main__":
     # teyvat_assistant_record_to_UIGF_format("抽卡记录.json")
@@ -150,7 +153,8 @@ if __name__ == "__main__":
         teyvat_assistant_record_to_UIGF_format(user_input_file)
     elif user_input_feature == "2":
         paimon_moe_UIGF_converter(user_input_file, input("请输入 UID："),
-                                  input("是否删除近6个月的数据以避免重复？默认放弃（y/n）") == "y")
+                                  input("是否删除近6个月的数据以避免重复？默认放弃（y/n）") == "y",
+                                  utils.get_utc_int_from_sever(input("请输入服务器名称：")))
     elif user_input_feature == "3":
         UIGF_valid(user_input_file)
     elif user_input_feature == "4":
