@@ -35,7 +35,8 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
         file_name = file_name.replace("\"", "")
 
     # Make dictionary
-    # item_dict = json.loads(requests.get("https://api.uigf.org/dict/en.json").text)
+    item_dict = json.loads(requests.get("https://api.uigf.org/dict/genshin/en.json").text)
+    """
     AvatarExcelConfigData = json.loads(
         requests.get("https://gitlab.com/Dimbreath/AnimeGameData/-/raw/master/ExcelBinOutput/AvatarExcelConfigData.json").text)
     WeaponExcelConfigData = json.loads(
@@ -56,6 +57,7 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
                 eng_to_chs_dict[eng_name] = chs_name
             except KeyError:
                 continue
+    """
 
     # 加载 Paimon.moe的祈愿导出Excel文件
     df1 = pd.read_excel(file_name, sheet_name="Character Event")
@@ -66,8 +68,8 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
     # 角色活动祈愿
     # 翻译名称
     # df1["item_id"] = df1.Name.apply(lambda x: item_dict[x])
-    df1["name"] = df1.Name.apply(lambda x: eng_to_chs_dict[x])
-    df1.drop(columns=['Name'], inplace=True)
+    #df1["name"] = df1.Name.apply(lambda x: eng_to_chs_dict[x])
+    #df1.drop(columns=['Name'], inplace=True)
     # 翻译种类
     df1["item_type"] = df1.Type.apply(lambda x: type_translate(x))
     df1.drop(columns=['Type'], inplace=True)
@@ -82,9 +84,9 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
 
     # 武器活动祈愿
     # 翻译名称
-    # df2["item_id"] = df2.Name.apply(lambda x: item_id_converter(x, item_dict))
-    df2["name"] = df2.Name.apply(lambda x: eng_to_chs_dict[x])
-    df2.drop(columns=['Name'], inplace=True)
+    df2["item_id"] = df2.Name.apply(lambda x: item_id_converter(x, item_dict))
+    #df2["name"] = df2.Name.apply(lambda x: eng_to_chs_dict[x])
+    #df2.drop(columns=['Name'], inplace=True)
     # 翻译种类
     df2["item_type"] = df2.Type.apply(lambda x: type_translate(x))
     df2.drop(columns=['Type'], inplace=True)
@@ -98,9 +100,9 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
 
     # 常驻祈愿
     # 翻译名称
-    # df3["item_id"] = df3.Name.apply(lambda x: item_id_converter(x, item_dict))
-    df3["name"] = df3.Name.apply(lambda x: eng_to_chs_dict[x])
-    df3.drop(columns=['Name'], inplace=True)
+    df3["item_id"] = df3.Name.apply(lambda x: item_id_converter(x, item_dict))
+    #df3["name"] = df3.Name.apply(lambda x: eng_to_chs_dict[x])
+    #df3.drop(columns=['Name'], inplace=True)
     # 翻译种类
     df3["item_type"] = df3.Type.apply(lambda x: type_translate(x))
     df3.drop(columns=['Type'], inplace=True)
@@ -114,11 +116,11 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
 
     # 新手祈愿
     # 翻译名称
-    # df4["item_id"] = df4.Name.apply(lambda x: item_id_converter(x, item_dict))
-    df4["name"] = df4.Name.apply(lambda x: eng_to_chs_dict[x])
-    df4.drop(columns=['Name'], inplace=True)
+    df4["item_id"] = df4.Name.apply(lambda x: item_id_converter(x, item_dict))
+    #df4["name"] = df4.Name.apply(lambda x: eng_to_chs_dict[x])
+    #df4.drop(columns=['Name'], inplace=True)
     # 翻译种类
-    df4["item_type"] = df4.Type.apply(lambda x: type_translate(x))
+    #df4["item_type"] = df4.Type.apply(lambda x: type_translate(x))
     df4.drop(columns=['Type'], inplace=True)
     # 创建稀有度列
     df4["rank_type"] = df4["⭐"]
@@ -151,14 +153,16 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
     MergedDF['gacha_type'] = MergedDF['gacha_type'].astype(str)
     MergedDF['id'] = MergedDF['id'].astype(str)
     MergedDF['lang'] = MergedDF['lang'].astype(str)
-    MergedDF['name'] = MergedDF['name'].astype(str)
-    # MergedDF['item_id'] = MergedDF['item_id'].astype(str)
+    #MergedDF['name'] = MergedDF['name'].astype(str)
+    MergedDF['item_id'] = MergedDF['item_id'].astype(str)
     MergedDF['rank_type'] = MergedDF['rank_type'].astype(str)
     MergedDF['time'] = MergedDF['time'].astype(str)
     MergedDF['uid'] = MergedDF['uid'].astype(str)
     MergedDF['uigf_gacha_type'] = MergedDF['uigf_gacha_type'].astype(str)
     # 修改列顺序
-    MergedDF = MergedDF[["count", "gacha_type", "id", "item_type", "lang", "name",
+    #MergedDF = MergedDF[["count", "gacha_type", "id", "item_type", "lang", "name",
+    #                     "rank_type", "time", "uid", "uigf_gacha_type"]]
+    MergedDF = MergedDF[["count", "gacha_type", "id", "lang",
                          "rank_type", "time", "uid", "uigf_gacha_type"]]
 
     # 删除近6个月的数据
@@ -182,7 +186,7 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
             "export_timestamp": int(time.time()),
             "export_app": "Paimon.moe-WishHistory-UIGF-Exporter",
             "export_app_version": "1.0.0",
-            "uigf_version": "v2.2"
+            "uigf_version": "v2.3"
         }
     }
     output_list = []
@@ -190,9 +194,7 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
         this_row_data = {
             "uigf_gacha_type": row["uigf_gacha_type"],
             "gacha_type": row["gacha_type"],
-            "name": row["name"],
             "count": row["count"],
-            "item_type": row["item_type"],
             "time": row["time"],
             "rank_type": row["rank_type"],
             "id": row["id"]

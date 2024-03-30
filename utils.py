@@ -2,8 +2,7 @@ from datetime import datetime, timedelta
 import httpx
 import pytz
 
-banner_data = httpx.get("https://raw.githubusercontent.com/Masterain98/Genshin-Wish-Event-History-Data/main/pool"
-                        ".json").json()
+banner_data = httpx.get("https://raw.githubusercontent.com/Masterain98/Genshin-Wish-Event-History-Data/main/pool.json").json()
 
 
 def get_uigf_gacha_type_online(row, utc_offset_value: int) -> int:
@@ -29,7 +28,7 @@ def get_uigf_gacha_type_online(row, utc_offset_value: int) -> int:
     if gacha_type == 0:
         print(banner_name + " is not a recognized banner, contact developer to request update\n"
                             "┕-->> gacha time (UTC+8): " + str(gacha_time.astimezone(pytz.timezone("Asia/Shanghai")))
-                            + "\n" + "┕-->> gacha time (Local): " + str(gacha_time))
+              + "\n" + "┕-->> gacha time (Local): " + str(gacha_time))
 
     return gacha_type
 
