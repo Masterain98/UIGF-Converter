@@ -16,11 +16,11 @@ def type_translate(x: str) -> str:
         return ""
 
 
-def item_id_converter(x: str, item_dict: dict) -> int:
+def item_id_converter(x: str, item_dict: dict) -> str:
     if x in item_dict.keys():
-        return item_dict[x]
+        return str(item_dict[x])
     print("转换物品 ID 错误： " + x)
-    return 0
+    return str(0)
 
 
 def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: bool = "y", timezone: int = 8):
@@ -67,7 +67,7 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
 
     # 角色活动祈愿
     # 翻译名称
-    # df1["item_id"] = df1.Name.apply(lambda x: item_dict[x])
+    df1["item_id"] = df1.Name.apply(lambda x: item_dict[x])
     #df1["name"] = df1.Name.apply(lambda x: eng_to_chs_dict[x])
     #df1.drop(columns=['Name'], inplace=True)
     # 翻译种类
@@ -162,13 +162,13 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
     # 修改列顺序
     #MergedDF = MergedDF[["count", "gacha_type", "id", "item_type", "lang", "name",
     #                     "rank_type", "time", "uid", "uigf_gacha_type"]]
-    MergedDF = MergedDF[["count", "gacha_type", "id", "lang",
+    MergedDF = MergedDF[["count", "gacha_type", "id", "lang", "item_id",
                          "rank_type", "time", "uid", "uigf_gacha_type"]]
 
-    # 删除近6个月的数据
+    # 删除近12个月的数据
     if drop_six_month_data:
         MergedDF['time'] = pd.to_datetime(MergedDF['time'])
-        deadline_time = datetime.datetime.now() - datetime.timedelta(days=180)
+        deadline_time = datetime.datetime.now() - datetime.timedelta(days=360)
         MergedDF = MergedDF[MergedDF['time'] < deadline_time]
         MergedDF['time'] = MergedDF['time'].astype(str)
     else:
@@ -186,7 +186,8 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
             "export_timestamp": int(time.time()),
             "export_app": "Paimon.moe-WishHistory-UIGF-Exporter",
             "export_app_version": "1.0.0",
-            "uigf_version": "v2.3"
+            "uigf_version": "v2.4",
+            "region_time_zone": timezone
         }
     }
     output_list = []
@@ -194,6 +195,7 @@ def paimon_moe_UIGF_converter(file_name: str, uid: str, drop_six_month_data: boo
         this_row_data = {
             "uigf_gacha_type": row["uigf_gacha_type"],
             "gacha_type": row["gacha_type"],
+            "item_id": row['item_id'],
             "count": row["count"],
             "time": row["time"],
             "rank_type": row["rank_type"],

@@ -105,8 +105,8 @@ if __name__ == "__main__":
             if file_path:
                 break
         paimon_moe_UIGF_converter(file_path, input("请输入 UID | Input your UID："),
-                                  input("是否删除近6个月的数据以避免重复？默认放弃（y/n）\n"
-                                        "Remove recent 6 months data to avoid duplicated data? default remove (y/n)") == "y",
+                                  input("是否删除近12个月的数据以避免重复？默认放弃（y/n）\n"
+                                        "Remove recent 12 months data to avoid duplicated data? default remove (y/n)") == "y",
                                   utils.get_utc_int_from_sever(input("请输入服务器名称：/ Input server name: (na/eu/asia/hk/tw/mo/cn)")))
     elif user_input_feature == "3":
         file_path = filedialog.askopenfilename(filetypes=(("UIGF Json File", "*.json"),))
