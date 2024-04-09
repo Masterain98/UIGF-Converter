@@ -4,10 +4,9 @@ import pytz
 
 banner_data = httpx.get("https://raw.githubusercontent.com/Masterain98/Genshin-Wish-Event-History-Data/main/pool.json").json()
 
-
 def get_uigf_gacha_type_online(row, utc_offset_value: int) -> int:
-    target_time_zone = pytz.timezone(f"Etc/GMT{utc_offset_value}" if utc_offset_value < 0
-                                     else f"Etc/GMT+{utc_offset_value}")
+    target_time_zone = pytz.timezone(f"Etc/GMT-{utc_offset_value}" if utc_offset_value > 0
+                                     else f"Etc/GMT+{-utc_offset_value}")
     gacha_time = datetime.strptime(row["Time"], "%Y-%m-%d %H:%M:%S").replace(tzinfo=target_time_zone)
     banner_name = row["Banner"].replace("'", "")
     gacha_type = 0
@@ -15,7 +14,7 @@ def get_uigf_gacha_type_online(row, utc_offset_value: int) -> int:
         start_time = datetime.strptime(banner["start_time"],
                                        "%Y-%m-%d %H:%M:%S").replace(tzinfo=pytz.timezone("Asia/Shanghai"))
         end_time = datetime.strptime(banner["end_time"],
-                                     "%Y-%m-%d %H:%M:%S").replace(tzinfo=pytz.timezone("Asia/Shanghai"))
+                                     "%Y-%m-%d %H:%M:%S").replace(tzinfo=target_time_zone)
         if banner_name == banner["localization"]["EN"]["pool_title"].replace("'", ""):
             # print(f"Found matched name: {banner_name}, from {start_time} to {end_time}")
             if banner["order"] >= 2 and utc_offset_value != 8:
